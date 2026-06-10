@@ -1,4 +1,5 @@
 import React from 'react';
+import { router } from '@inertiajs/react';
 
 // Ako koristiš TypeScript, ostavi ovaj interfejs.
 // U suprotnom, možeš ga obrisati.
@@ -15,6 +16,15 @@ export interface Doctor {
 }
 
 export default function DoctorCard({ doctor }: { doctor: Doctor }) {
+
+    const handleDelete = () => {
+        // Kasnije ovde dodajemo modal za potvrdu
+        if (confirm('Da li ste sigurni da želite da obrišete ovog doktora?')) {
+            router.delete(`/doctors/${doctor.id}`);
+        }
+    };
+
+
     return (
         <div className="flex flex-col gap-3 rounded-xl border border-sidebar-border/70 bg-white p-5 shadow-sm transition-all hover:shadow-md dark:border-sidebar-border dark:bg-neutral-900">
             {/* Header kartice: Ime i Status */}
@@ -55,6 +65,12 @@ export default function DoctorCard({ doctor }: { doctor: Doctor }) {
                     </span>
                     {doctor.license_number}
                 </div>
+                <button
+                      onClick={handleDelete}
+                    className="text-xs font-semibold text-red-600 transition-colors hover:text-red-800 dark:text-red-400 dark:hover:text-red-300"
+                >
+                    Obriši
+                </button>
             </div>
         </div>
     );
