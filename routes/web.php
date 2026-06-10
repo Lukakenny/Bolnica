@@ -12,6 +12,11 @@ Route::middleware(['auth', 'role:doctor'])->group(function () {
         return Inertia::render('Doctor/Home');
     });
 });
+Route::middleware(['auth', 'role:patient'])->group(function () {
+    Route::get('/patient', function () {
+        return Inertia::render('Patient/Home');
+    });
+});
 
 
 

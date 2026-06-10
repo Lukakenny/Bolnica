@@ -28,6 +28,8 @@ createInertiaApp({
 
             case name.startsWith('Doctor/'):
                 return [MojLayOut];
+            case name.startsWith('Patient/'):
+                return [MojLayOut];
 
             default:
                 return AppLayout;
