@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Patient;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -12,6 +13,7 @@ class PatientSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        // Kreira 10 nasumičnih pacijenata
+        Patient::factory()->count(10)->create();
     }
 }
