@@ -1,5 +1,6 @@
 import { Link } from '@inertiajs/react';
-import {  FolderGit2, LayoutGrid } from 'lucide-react';
+
+import {  FolderGit2, LayoutGrid,UserPlus } from 'lucide-react';
 import AppLogo from '@/components/app-logo';
 import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
@@ -22,14 +23,20 @@ const mainNavItems: NavItem[] = [
         href: dashboard(),
         icon: LayoutGrid,
     },
+    {
+        title: 'CreateDoctor',
+        href: '/doctors/create',
+        icon: UserPlus,
+    },
 ];
 
 const footerNavItems: NavItem[] = [
     {
-        title: 'Repository',
+        title: 'Repositories',
         href: 'https://github.com/Lukakenny/Bolnica',
         icon: FolderGit2,
     },
+
 
 ];
 
@@ -59,3 +66,7 @@ export function AppSidebar() {
         </Sidebar>
     );
 }
+function route(arg0: string): NonNullable<string | import("@inertiajs/core").UrlMethodPair | undefined> {
+    throw new Error('Function not implemented.');
+}
+

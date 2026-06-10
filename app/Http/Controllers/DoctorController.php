@@ -5,10 +5,18 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreDoctorRequest;
 use App\Http\Requests\UpdateDoctorRequest;
 use App\Models\Doctor;
+use App\Repositories\DoctorRepository;
 use Inertia\Inertia;
 
 class DoctorController extends Controller
 {
+    protected DoctorRepository $doctorRepo;
+
+    public function __construct(DoctorRepository $doctorRepo)
+    {
+        $this->doctorRepo = $doctorRepo;
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -22,7 +30,7 @@ class DoctorController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Admin/CreateDoctor');
     }
 
     /**
@@ -30,7 +38,10 @@ class DoctorController extends Controller
      */
     public function store(StoreDoctorRequest $request)
     {
-        //
+
+        $this->doctorRepo->createDoctor($request->validated());
+
+        return redirect()->back();
     }
 
     /**
