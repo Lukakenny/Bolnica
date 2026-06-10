@@ -12,6 +12,7 @@ export interface Doctor {
     // Pretpostavka je da ćeš kasnije iz baze povući i ime preko relacije sa User modelom
     user?: {
         name: string;
+        role?: string;
     };
 }
 
@@ -30,9 +31,16 @@ export default function DoctorCard({ doctor }: { doctor: Doctor }) {
             {/* Header kartice: Ime i Status */}
             <div className="flex items-start justify-between">
                 <div>
-                    <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">
-                        {doctor.user?.name || `Doktor #${doctor.id}`}
-                    </h3>
+                    <div className="flex items-center gap-2">
+                        <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">
+                            {doctor.user?.name || `Doktor #${doctor.id}`}
+                        </h3>
+                        {doctor.user?.role && (
+                            <span className="inline-flex items-center rounded-full bg-indigo-50 px-2 py-0.5 text-xs font-medium capitalize text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300">
+                                {doctor.user.role}
+                            </span>
+                        )}
+                    </div>
                     <p className="text-sm font-medium text-indigo-600 dark:text-indigo-400">
                         {doctor.specialization}
                     </p>

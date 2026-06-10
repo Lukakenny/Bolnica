@@ -12,7 +12,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('doctors', DoctorController::class)->except(['index', 'show']);
 });
 Route::middleware(['auth', 'role:doctor'])->group(function () {
-
+    Route::resource('doctors', DoctorController::class)->only(['index', 'show']);
 });
 Route::middleware(['auth', 'role:patient'])->group(function () {
     Route::get('/patient', function () {
