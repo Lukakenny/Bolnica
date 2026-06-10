@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreDoctorRequest;
 use App\Http\Requests\UpdateDoctorRequest;
 use App\Models\Doctor;
+use App\Repositories\AppointmentRepository;
 use App\Repositories\DoctorRepository;
 use Inertia\Inertia;
 
@@ -12,9 +13,12 @@ class DoctorController extends Controller
 {
     protected DoctorRepository $doctorRepo;
 
-    public function __construct(DoctorRepository $doctorRepo)
+    protected AppointmentRepository $appointmentRepo;
+
+    public function __construct(DoctorRepository $doctorRepo, AppointmentRepository $appointmentRepo)
     {
         $this->doctorRepo = $doctorRepo;
+        $this->appointmentRepo = $appointmentRepo;
     }
 
     /**
@@ -22,7 +26,19 @@ class DoctorController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Doctor/Home');
+        $doctor = auth()->user()->doctor;
+
+        if (! $doctor) {
+            return Inertia::render('Doctor/Home', [
+                'appointments' => [],
+            ]);
+        }
+
+        $appointments = $this->appointmentRepo->getForDoctor($doctor);
+
+        return Inertia::render('Doctor/Home', [
+            'appointments' => $appointments,
+        ]);
     }
 
     /**
