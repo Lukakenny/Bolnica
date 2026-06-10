@@ -13,7 +13,7 @@ class DashboardController extends Controller
      public function index()
      {
          return Inertia::render('dashboard', [
-             'doctors' => Doctor::all()
+             'doctors' => Doctor::with('user')->get()
          ]);
      }
 }
